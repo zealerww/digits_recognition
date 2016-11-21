@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>recognition</title>
+<link rel="shortcut icon" href="static/logo.png">
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+<div id="webheader">
+    <img id="headerimg" src="static/logo.png" width="100" height="100">    
+</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <h2>handwritten digits recognition</h2>  
+            <p>draw on the canvas and submit, then the result will show on the right</p>
+            <hr>  
+            <div class="row clearfix">
+                <div class="col-md-6 column">
+                    <h3>draw below</h3>
+                    <canvas id="the_stage" width="400" height="400">your browser don't support canvas!</canvas>
+                    <div>
+                        <button type="button" class="btn btn-default butt" onclick="clearCanvas()"><strong>clear</strong></button>
+                        <button type="button" class="btn btn-default butt" id="recognize" onclick="processImg()"><strong>recognize</strong></button>
+                    </div>
+                </div>
+                <div class="col-md-6 column">
+                    <h3>result:</h3>
+                    <h2 id="rec_result"></h2>
+                </div>
+            </div>
+            <div id="imgs">   
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="static/draw.js"></script>
+</body>
+</html>
