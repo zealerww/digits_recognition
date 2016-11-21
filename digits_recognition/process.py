@@ -3,6 +3,11 @@ import tensorflow as tf
 from PIL import Image
 from io import BytesIO
 
+responseTime = 0
+prediction = 0
+x = 0
+keep_prob = 0
+sess = 0
 
 
 
@@ -40,13 +45,19 @@ def preProcess(imgStr):
 
 	smallImg = Image.new('L', (28,28), 255)
 	smallImg.paste(img, (wstart, hstart))
-
 	imgdata = list(smallImg.getdata())
 	imgdata = [(255.0-x)/255.0 for x in imgdata]
 	return imgdata
 
 def predict(imgArray):
+	global responseTime, prediction, sess, x, keep_prob
+	if(responseTime == 0):
+		predictInit()
+		responseTime = 1
+	return prediction.eval(feed_dict={x: [imgArray],keep_prob: 1.0}, session=sess)
 
+def predictInit():
+	global prediction, sess, x, keep_prob
 	x = tf.placeholder(tf.float32, [None, 784])
 	W = tf.Variable(tf.zeros([784, 10]))
 	b = tf.Variable(tf.zeros([10]))
@@ -96,10 +107,10 @@ def predict(imgArray):
 	saver = tf.train.Saver()
 
 
-	with tf.Session() as sess:
-		sess.run(init_op)
-		saver.restore(sess, "digits_recognition/model/model.ckpt")
-		prediction=tf.argmax(y_conv,1)
-		return prediction.eval(feed_dict={x: [imgArray],keep_prob: 1.0}, session=sess)
+	sess = tf.Session()
+	sess.run(init_op)
+	saver.restore(sess, "digits_recognition/model/model.ckpt")
+	prediction = tf.argmax(y_conv,1)
+	
 
 
