@@ -96,8 +96,8 @@ function clearCanvas()
 function processImg()
 {
 	document.getElementById("rec_result").innerHTML = "connecting...";
+	
     var scribbler = document.getElementById ("the_stage");
-
     var imageData =  scribbler.toDataURL('image/png');
     var dataTemp = imageData.substr(22);  
 
