@@ -1,6 +1,7 @@
 # Handwrtten Digits Recognition
 
 It is a web application of handwritten digits recognition based on Django. The website looks like:
+
 ![website](https://raw.githubusercontent.com/zealerww/digits_recognition/master/digits_recognition/static/website.png)
 
 It's deployed on [Heroku](https://www.heroku.com/home)
