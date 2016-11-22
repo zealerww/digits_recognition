@@ -4,9 +4,11 @@ It is a web application of handwritten digits recognition based on Django. The w
 
 ![website](https://raw.githubusercontent.com/zealerww/digits_recognition/master/digits_recognition/static/website.png)
 
-It's deployed on [Heroku](https://www.heroku.com/home)
+It's deployed on [Heroku](https://www.heroku.com/home).
 
-[Demo Website](https://murmuring-ravine-30623.herokuapp.com/)
+[Demo Website](https://murmuring-ravine-30623.herokuapp.com/), there may be a delay of a few seconds for the first request upon waking.
+
+You can get more details on [my post](http://zealerww.github.io/2016/11/22/digits/).
 
 
 ## Dependencies
