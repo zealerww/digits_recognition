@@ -20,15 +20,25 @@ def recNum(imgStr):
 
 
 def preProcess(imgStr):
+	"""预处理
+	将图像区域找出来，将其缩放放置在28*28图像中的中央
+	Arg:
+		imgStr: 从web获取并解码好的数据
+	Return:
+		返回一个(1,28*28)大小的list，其是28*28图像reshape而成
+	"""
 	try:
+		#将数据解码成pil的image
 		img = Image.open(BytesIO(imgStr)).convert('L')
 	except:
 		return "nothing"
 
+	#找出数字所在区域的最小外接矩形
 	bbox = Image.eval(img, lambda px: 255-px).getbbox()
 	if bbox is None:
 		return "nothing"
 
+	#将区域按比例缩小，最大边为20
 	widthlen = bbox[2] - bbox[0]
 	heightlen = bbox[3] - bbox[1]
 
@@ -41,22 +51,33 @@ def preProcess(imgStr):
 	hstart = int((28 - heightlen)/2)
 	wstart = int((28 - widthlen)/2)
 
+	#TODO(ww): 这里nearest参数效果比默认参数好，还需探究
 	img = img.crop(bbox).resize((widthlen, heightlen), Image.NEAREST)
 
 	smallImg = Image.new('L', (28,28), 255)
 	smallImg.paste(img, (wstart, hstart))
 	imgdata = list(smallImg.getdata())
+	#需要改为背景为0，前景为1
 	imgdata = [(255.0-x)/255.0 for x in imgdata]
 	return imgdata
 
 def predict(imgArray):
+	"""预测
+	通过加载好的模型来进行预测
+	Return:
+		预测值的list
+	"""
 	global responseTime, prediction, sess, x, keep_prob
+	#程序加载的第一次进行预测初始化，之后就调用全局变量
 	if(responseTime == 0):
 		predictInit()
 		responseTime = 1
 	return prediction.eval(feed_dict={x: [imgArray],keep_prob: 1.0}, session=sess)
 
 def predictInit():
+	"""预测初始化
+	初始化各种参数和加载训练好的模型，一些参数需要声明为全局变量，不需要多次加载
+	"""
 	global prediction, sess, x, keep_prob
 	x = tf.placeholder(tf.float32, [None, 784])
 	W = tf.Variable(tf.zeros([784, 10]))

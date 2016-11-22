@@ -16,6 +16,7 @@ def process(request):
 		imgStr = request.POST.get('txt')
 		#imgStr.replace(" ", "+")
 		imgStr = base64.b64decode(imgStr)
+		#识别
 		res = str(recNum(imgStr))
 		return HttpResponse(json.dumps({"status": 1, "result": res}))
 
