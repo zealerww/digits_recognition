@@ -30,7 +30,7 @@ And you can visit it on localhost:6000
 
 ## Deploy to Heroku
 
-You can deploy the app to Heroku if you have a account
+You can deploy the app to Heroku if you have an account
 
 	$ heroku login
 	$ heroku create
